@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+
+    <style>
+        .container {
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            flex-direction: column;
+            background-color: cornflowerblue;
+            height: 500px;
+            margin: 0px 200px;
+        }
+
+        button {
+            margin-left: 110px;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        #result {
+            color: white;
+            width: fit-content;
+            height: 20px;
+            /* border: 2px solid black; */
+            margin: 10px auto;
+        }
+
+        .range {
+            margin: 0px 29px;
+            /* margin-left: 35px; */
+        }
+
+        .range h3 {
+            margin-left: 35px;
+        }
+
+        .range li {
+            list-style: none;
+            border: 2px solid black;
+            background-color: black;
+            color: white;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>BMI Generator</h1>
+        <form action="php" id="form">
+            <p><label> Enter Your Height:</label><input type="text" id="height"></p>
+            <p><label>Enter Your Weight:</label><input type="text" id="weight"></p>
+            <button type="submit">Calculate</button>
+            <div id="result"></div>
+            <div class="range">
+                <h3>BMI Weight Guide</h3>
+                <li>Under Weight = Less Than 18.6</li>
+                <li>Normal Range = 18.6 and 24.9</li>
+                <li>Overweight = Greater than 24.9</li>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+<script>
+
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const height = parseInt(document.getElementById("height").value);
+        const weight = parseInt(document.getElementById("weight").value);
+        const result = document.getElementById("result");
+
+
+        if (height === '' || height <= 0 || isNaN(height)) {
+            result.innerHTML = `Please Enter a Valid Height ${height}`
+        }
+        else if (weight === '' || weight <= 0 || isNaN(weight)) {
+            result.innerHTML = `Please Enter a Valid Weight ${weight}`
+        } 
+        else {
+
+            result.innerHTML = (weight / ((height * height) / 10000)).toFixed(2);
+
+            if (result.innerHTML < 18.6) {
+                result.innerHTML = `${(weight / ((height * height) / 10000)).toFixed(2)} under weight`;
+               
+            }
+            if (result.innerHTML > 18.6 && result.innerHTML < 24.9) {
+                result.innerHTML = `${(weight / ((height * height) / 10000)).toFixed(2)} Normal Range`;
+            }
+            if (result.innerHTML > 24.9) {
+                result.innerHTML = `${(weight / ((height * height) / 10000)).toFixed(2)} OverWeight`;
+            }
+
+        }
+    });
+
+</script>
+
+</html>
